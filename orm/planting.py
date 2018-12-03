@@ -31,7 +31,7 @@ class EntryType(Base):
     __tablename__ = 'entry_type'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
 
 
 class Harvest(Base):

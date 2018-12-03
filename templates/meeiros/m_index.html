@@ -23,10 +23,10 @@
         });
       }
     </script>
-    <div class="navv">
+    <div class="container">
         <button id="listar" class="btn btn-primary" onclick="getTemplate('list')">Listar</button>
         <button id="inserir" class="btn btn-primary" onclick="getTemplate('insert')">Inserir Novo</button>
-        <div id="includedContent">
+        <div id="includedContent" class="container-fluid">
           {% if inserted is defined %}
             {% if inserted == true %}
                 <div class="alert alert-success" role="alert">

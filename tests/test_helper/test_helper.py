@@ -1,6 +1,7 @@
+from datetime import datetime
 from sqlalchemy import exc
 
-from orm.planting import Base, Meeiro
+from orm.planting import Base, Meeiro, EntryType, Entry
 from orm.postgres_connection import Connection
 
 
@@ -61,3 +62,40 @@ def create_meeiro(name: str, cpf: str, rg: str) -> int:
     session.close()
 
     return meeiro_id
+
+
+def create_entry(meeiro_id: int, entry_date: datetime, entry_type_id: int, entry_value: float,
+                 description: str, connection: Connection) -> int:
+    entry = Entry()
+    entry.meeiro_id = meeiro_id
+    entry.entry_date = entry_date
+    entry.entry_type = entry_type_id
+    entry.entry_value = entry_value
+    entry.description = description
+
+    session = connection.session()
+    session.add(entry)
+    session.flush()
+
+    entry_id = entry.id
+
+    session.commit()
+    session.close()
+
+    return entry_id
+
+
+def create_entry_type(name: str, connection: Connection) -> int:
+    session = connection.session()
+
+    entry_type = EntryType()
+    entry_type.name = name
+    session.add(entry_type)
+    session.flush()
+
+    entry_type_id = entry_type.id
+
+    session.commit()
+    session.close()
+
+    return entry_type_id

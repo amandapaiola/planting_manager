@@ -1,7 +1,9 @@
+from typing import Optional
+
 from sqlalchemy import exc
 from sqlalchemy.orm import Session
 
-from models.exceptions import DuplicatedValue
+from models.exceptions import DuplicatedValue, RowNotFound
 from orm.planting import Meeiro as MeeiroMapping
 
 
@@ -10,11 +12,11 @@ class Meeiro:
         self.rg = rg
         self.cpf = cpf
         self.name = name
-        self.id_ = id_
+        self.id = id_
         self.db_connection = db_connection
 
     @classmethod
-    def get_meeiro(cls, db_connection: Session, id_: int = None, cpf: str = None):
+    def get_meeiro(cls, db_connection: Session, id_: int = None, cpf: str = None) -> Optional['Meeiro']:
         """
         Obtém o objeto meeiro do banco de dados a partir do filtro enviado, id e ou cpf.
         Caso não exista ou nenhum filtro seja enviado, retorna None.
@@ -34,9 +36,12 @@ class Meeiro:
             meeiro = db_connection.query(MeeiroMapping).filter(*filter_).first()
 
             if not meeiro:
-                return None
+                raise RowNotFound('Meeiro não encontrado para os filtros: id {} cpf {}'.format(
+                    id_, cpf
+                ))
 
             return Meeiro(meeiro.id, meeiro.name, meeiro.cpf, meeiro.rg, db_connection)
+        raise ValueError('Parametros inválidos para obter meeiro.')
 
     @classmethod
     def get_meeiros(cls, db_connection: Session):
@@ -80,9 +85,13 @@ class Meeiro:
 
     @classmethod
     def update_meeiro(cls, db_connection: Session, new_cpf: str, new_rg: str, new_name: str, id_: int) -> bool:
-        current_cpf = cls.get_meeiro(db_connection, cpf=new_cpf)
-        if current_cpf and current_cpf.id_ != id_:
-            raise DuplicatedValue("Este CPF já está sendo usado para o meeiro: {}".format(current_cpf.name))
+
+        try:
+            current_cpf = cls.get_meeiro(db_connection, cpf=new_cpf)
+            if current_cpf and current_cpf.id != id_:
+                raise DuplicatedValue("Este CPF já está sendo usado para o meeiro: {}".format(current_cpf.name))
+        except RowNotFound:
+            pass
 
         result_set = db_connection.query(MeeiroMapping).filter(MeeiroMapping.id == id_).update(
             {MeeiroMapping.rg: new_rg, MeeiroMapping.name: new_name, MeeiroMapping.cpf: new_cpf}

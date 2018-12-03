@@ -1,26 +1,41 @@
 
-{% if meeiros %}
+<br><br>
+<div class="container-fluid">
+    {% if meeiros %}
+        <div class="row">
+            <div class="col-md-2">Nome</div>
+            <div class="col-md-2">CPF</div>
+            <div class="col-md-2">RG</div>
+            <div class="col-md-3">Ações</div>
+        </div>
+        {% for meeiro in meeiros %}
+            <form id="{{meeiro.id}}" method="post" action="/meeiros/update">
+                <hr>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="name" disabled value="{{meeiro.name}}">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="cpf" disabled value="{{meeiro.cpf}}"></td>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="rg" disabled value="{{meeiro.rg}}"></td>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="form-control" type="button" id="editarMeeiro" onclick="habilitar('{{meeiro.id}}')">Editar</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="form-control" type="submit">Salvar</button>
+                        <input class="form-control" type="hidden" name="id" value="{{meeiro.id}}">
+                    </div>
+                </div>
+            </form>
+        {% endfor %}
 
-{% for meeiro in meeiros %}
-<form id="{{meeiro.id}}" method="post" action="/meeiros/update">
-    <div class="form-group">
-        <table>
-            <td><input class="form-control" type="text" name="name" disabled value="{{meeiro.name}}"></td>
-            <td><input class="form-control" type="text" name="cpf" disabled value="{{meeiro.cpf}}"></td>
-            <td><input class="form-control" type="text" name="rg" disabled value="{{meeiro.rg}}"></td>
-            <input class="form-control" type="hidden" name="id" value="{{meeiro.id}}" >
-            <td>
-                <button class="form-control" type="button" id="editarMeeiro" onclick="habilitar('{{meeiro.id}}')">Editar</button>
-                <button class="form-control" type="submit">Salvar</button>
-            </td>
-        </table>
-    </div>
-</form>
-{% endfor %}
-{% else %}
-    <h2>Nenhum meeiro cadastrado</h2>
-{% endif %}
-
+    {% else %}
+        <h2>Nenhum meeiro cadastrado</h2>
+    {% endif %}
+</div>
 <script>
     function habilitar(form_id) {
         $("#" +form_id + " :input").attr("disabled", false);
