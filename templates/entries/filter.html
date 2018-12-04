@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <br>
+    Periodo:
+
+    <div class="row" style="margin-bottom:20px;">
+    <div class="col-md-5">De: <input  type="text" name="min_date" id="min_date"></div>
+    <div class="col-md-5">Até: <input  type="text" name="max_date" id="max_date"></div>
+    </div>
+
+    <div class="row" style="margin-bottom:20px;">
+    Meeiro:<br>
+    <select name="meeiro_id" id="meeiro_id" class="selectpicker">
+        {% for m in meeiros %}
+          <option value= '{{ m.id }}'>{{m.name}}</option>
+        {% endfor %}
+    </select>
+    </div>
+
+    <div class="row" style="margin-bottom:20px;">
+    Tipo:<br>
+    <select name="entry_type_id" id="entry_type_id" class="selectpicker">
+        {% for t in types %}
+          <option value= '{{ t.id }}'>{{t.name}}</option>
+        {% endfor %}
+    </select>
+    </div>
+
+    <div class="row" style="margin-bottom:20px;">
+    <button id="listar" class="btn btn-primary" onclick="listEntries()">Listar</button>
+
+    </div>
+
+</div>

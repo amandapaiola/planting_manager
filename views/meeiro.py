@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, current_app
 
-from controllers.meeiros import MeeiroController
-from views.schemas.meeiros import MeeiroSchema
+from controllers.meeiro import MeeiroController
+from views.schemas.meeiro import MeeiroSchema
 from marshmallow import ValidationError
 
 mod = Blueprint('meeiros', __name__, url_prefix='/meeiros')

@@ -5,7 +5,7 @@ from enum import Enum
 from sqlalchemy.sql.elements import and_
 
 
-class DataRange:
+class DateRange:
     def __init__(self, max_date: datetime, min_date: datetime, use_equal: bool=True):
         self.max_date = max_date
         self.min_date = min_date

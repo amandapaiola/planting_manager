@@ -6,13 +6,12 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<script type=text/javascript
-        src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type=text/javascript src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 {% endblock %}
 <div class=container>
   <p class=navv>
     <a href="/meeiros">meeiros</a>
-    <a href="#">lançamentos</a>
+    <a href="/entries">lançamentos</a>
     <a href="#">relatórios</a>
   {% for message in get_flashed_messages() %}
     <p class=message>{{ message }}

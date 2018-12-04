@@ -5,7 +5,8 @@ from flask import Flask, render_template
 
 from orm.postgres_connection import Connection
 from views.general import mod as general_view
-from views.meeiros import mod as meeiro_view
+from views.meeiro import mod as meeiro_view
+from views.entry import mod as entry_view
 
 
 app = Flask(__name__)
@@ -26,3 +27,4 @@ def not_found(error):
 
 app.register_blueprint(general_view)
 app.register_blueprint(meeiro_view)
+app.register_blueprint(entry_view)

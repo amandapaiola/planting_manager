@@ -1,0 +1,38 @@
+
+<br><br>
+<div class="container-fluid">
+    {% if entries %}
+        <div class="row">
+            <div class="col-md-2">Meeiro</div>
+            <div class="col-md-2">Data</div>
+            <div class="col-md-2">Tipo</div>
+            <div class="col-md-2">Valor</div>
+            <div class="col-md-2">Descrição</div>
+        </div>
+        {% for entry in entries %}
+            <form id="{{entry.id}}" method="post" action="/meeiros/update">
+                <hr>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="meeiro" disabled value="{{entry.meeiro.name}}">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="data" disabled value="{{entry.entry_date}}">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="tipo" disabled value="{{entry.entry_type.name}}">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="valor" disabled value="{{entry.entry_value}}">
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="desc" disabled value="{{entry.description}}">
+                    </div>
+                </div>
+            </form>
+        {% endfor %}
+
+    {% else %}
+        <h2>Nenhum lançamento registrado cadastrado</h2>
+    {% endif %}
+</div>

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from sqlalchemy import exc
 from sqlalchemy.orm import Session
@@ -44,7 +44,7 @@ class Meeiro:
         raise ValueError('Parametros inválidos para obter meeiro.')
 
     @classmethod
-    def get_meeiros(cls, db_connection: Session):
+    def get_meeiros(cls, db_connection: Session) -> List['Meeiro']:
         """
         Obtém todos os meeiros que existem cadastrados no banco.
         :param db_connection: sessão de conexão com o banco de dados.

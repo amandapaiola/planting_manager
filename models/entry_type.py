@@ -23,3 +23,11 @@ class EntryType:
         if not entry_type:
             raise RowNotFound('Este tipo de lançamento não foi encontrado. Id: {}'.format(id_))
         return EntryType(id_=entry_type.id, name=entry_type.name, db_connection=db_connection)
+
+    @classmethod
+    def list(cls, session: Session):
+        result_set = session.query(EntryTypeMapping).all()
+        entry_types = []
+        for result in result_set:
+            entry_types.append(EntryType(result.id, result.name, session))
+        return entry_types

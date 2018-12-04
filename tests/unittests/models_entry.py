@@ -4,7 +4,7 @@ import pytz
 from datetime import datetime
 
 from models.entry import Entry
-from models.filter_helper import DataRange, NumValueLimit, Operation
+from models.filter_helper import DateRange, NumValueLimit, Operation
 from models.exceptions import RowNotFound
 from orm.planting import Entry as EntryMapping
 from orm.postgres_connection import Connection
@@ -115,7 +115,7 @@ class EntryModelTest(TestCase):
 
         filters_ = Entry.get_filters_to_query_entry(db_session=execute_session,
                                                     date_filter=
-                                                    DataRange(min_date=america_timezone.localize(datetime(2018, 10, 1, 23, 59)),
+                                                    DateRange(min_date=america_timezone.localize(datetime(2018, 10, 1, 23, 59)),
                                                               max_date=america_timezone.localize(datetime(2018, 10, 2, 1, 10)),
                                                               use_equal=True),
                                                     )

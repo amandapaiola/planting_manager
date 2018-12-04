@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from models.exceptions import DuplicatedValue
 from models.meeiro import Meeiro
-from views.dtos.meeiros import MeeiroDto
+from views.dtos.meeiro import MeeiroDto
 
 
 class MeeiroController:
@@ -25,7 +25,7 @@ class MeeiroController:
             serialized_list.append(MeeiroDto(name=m.name,
                                              cpf=m.cpf,
                                              rg=m.rg,
-                                             id_=m.id_))
+                                             id_=m.id))
         return serialized_list
 
     def update(self, id_: int, cpf: str, rg: str, name: str):
@@ -37,3 +37,7 @@ class MeeiroController:
                 return False, 'Erro inesperado. Tente novamente.'
         except DuplicatedValue as error:
             return False, error
+
+    def get_meeiro(self, id_: int = None, cpf: str = None) -> MeeiroDto:
+        m = Meeiro.get_meeiro(db_connection=self.db_connection, id_=id_, cpf=cpf)
+        return MeeiroDto(name=m.name, cpf=m.cpf, rg=m.rg, id_=m.id)

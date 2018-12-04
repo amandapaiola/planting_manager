@@ -4,7 +4,7 @@ from typing import List
 from sqlalchemy.orm import Session
 
 from models.entry_type import EntryType
-from models.filter_helper import DataRange, NumValueLimit
+from models.filter_helper import DateRange, NumValueLimit
 from models.meeiro import Meeiro
 from orm.planting import Entry as EntryMapping
 
@@ -25,7 +25,6 @@ class Entry:
                description: str, db_session: Session):
         """
         :raises RowNotFound: caso de valores inválidos como meeiro e tipo de lançamento
-
         :param meeiro_id:
         :param entry_date:
         :param entry_type_id:
@@ -50,7 +49,7 @@ class Entry:
 
 
     @staticmethod
-    def get_filters_to_query_entry(db_session: Session, meeiro_id: int = None, date_filter: DataRange = None,
+    def get_filters_to_query_entry(db_session: Session, meeiro_id: int = None, date_filter: DateRange = None,
                                    entry_type_id: int = None, filter_value: NumValueLimit = None) -> List:
         filters = []
         if meeiro_id:
