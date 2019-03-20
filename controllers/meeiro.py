@@ -19,7 +19,7 @@ class MeeiroController:
             return False, error
 
     def list(self) -> List[MeeiroDto]:
-        meeiros = Meeiro.get_meeiros(self.db_connection)
+        meeiros = Meeiro.list(self.db_connection)
         serialized_list = []
         for m in meeiros:
             serialized_list.append(MeeiroDto(name=m.name,
@@ -30,7 +30,7 @@ class MeeiroController:
 
     def update(self, id_: int, cpf: str, rg: str, name: str):
         try:
-            updated = Meeiro.update_meeiro(self.db_connection, new_cpf=cpf, new_rg=rg, new_name=name, id_=id_)
+            updated = Meeiro.update(self.db_connection, new_cpf=cpf, new_rg=rg, new_name=name, id_=id_)
             if updated:
                 return True, 'Alterado com sucesso!'
             else:

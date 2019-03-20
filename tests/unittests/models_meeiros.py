@@ -64,7 +64,7 @@ class MeeiroModelTest(TestCase):
         connection.session().expunge_all()
         connection.session().close_all()
 
-        result_set = Meeiro.update_meeiro(connection.session(), 'new_cpf', 'new_rg', 'new_name', meeiro_id)
+        result_set = Meeiro.update(connection.session(), 'new_cpf', 'new_rg', 'new_name', meeiro_id)
         self.assertTrue(result_set)
         connection.session().expunge_all()
         connection.session().close_all()
@@ -82,8 +82,8 @@ class MeeiroModelTest(TestCase):
         connection.session().close_all()
 
         with self.assertRaises(DuplicatedValue):
-            Meeiro.update_meeiro(connection.session(), new_cpf='1111111111', new_rg='new_rg',
-                                 new_name='new_name', id_=meeiro_id)
+            Meeiro.update(connection.session(), new_cpf='1111111111', new_rg='new_rg',
+                          new_name='new_name', id_=meeiro_id)
 
     def test__update_meeiro_only_name__expected_ok(self):
         connection = Connection('postgres', 'root', '127.0.0.1:5432', 'planting_manager_teste')
@@ -91,8 +91,8 @@ class MeeiroModelTest(TestCase):
         connection.session().expunge_all()
         connection.session().close_all()
 
-        result_set = Meeiro.update_meeiro(connection.session(), new_cpf='55584447213',
-                                          new_rg='50658045x', new_name='new_name', id_=meeiro_id)
+        result_set = Meeiro.update(connection.session(), new_cpf='55584447213',
+                                   new_rg='50658045x', new_name='new_name', id_=meeiro_id)
         self.assertTrue(result_set)
         connection.session().expunge_all()
         connection.session().close_all()

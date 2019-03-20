@@ -35,6 +35,8 @@ def list_template():
         return render_template('entries/insert.html',
                                **{'types': entry_types,
                                   'meeiros': meeiros})
+    elif template_required == 'insert_entry_type':
+        return render_template('entries/insert_entry_type.html')
 
 
 @mod.route('/list', methods=['POST'])

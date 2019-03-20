@@ -83,16 +83,16 @@ class EntryModelTest(TestCase):
                      description='veneno', db_session=execute_session)
 
         filters_ = Entry.get_filters_to_query_entry(db_session=execute_session, meeiro_id=meeiro_id)
-        entries = Entry.get_entries(execute_session, filters_)
+        entries = Entry.list(execute_session, filters_)
         self.assertEqual(len(entries), 1)
         expected_entry = entries[0]
 
         america_timezone = pytz.timezone('America/Sao_Paulo')
-        self.assertEqual(expected_entry.entry_type_id, entry_type_id)
-        self.assertEqual(str(expected_entry.entry_date), str(america_timezone.localize(datetime(2018, 10, 1))))
-        self.assertEqual(expected_entry.meeiro_id, meeiro_id)
-        self.assertEqual(expected_entry.description, 'veneno')
-        self.assertEqual(expected_entry.entry_value, 100.0)
+        self.assertEqual(expected_entry._entry_type_id, entry_type_id)
+        self.assertEqual(str(expected_entry._entry_date), str(america_timezone.localize(datetime(2018, 10, 1))))
+        self.assertEqual(expected_entry._meeiro_id, meeiro_id)
+        self.assertEqual(expected_entry._description, 'veneno')
+        self.assertEqual(expected_entry._entry_value, 100.0)
 
     def test_get_entries__filter_by_range_date__expected_correct_result(self):
         america_timezone = pytz.timezone('America/Sao_Paulo')
@@ -119,15 +119,15 @@ class EntryModelTest(TestCase):
                                                               max_date=america_timezone.localize(datetime(2018, 10, 2, 1, 10)),
                                                               use_equal=True),
                                                     )
-        entries = Entry.get_entries(execute_session, filters_)
+        entries = Entry.list(execute_session, filters_)
         self.assertEqual(len(entries), 1)
         expected_entry = entries[0]
 
-        self.assertEqual(expected_entry.entry_type_id, entry_type_id)
-        self.assertEqual(str(expected_entry.entry_date), str(america_timezone.localize(datetime(2018, 10, 2, 1, 1))))
-        self.assertEqual(expected_entry.meeiro_id, meeiro_id)
-        self.assertEqual(expected_entry.description, 'veneno')
-        self.assertEqual(expected_entry.entry_value, 100.0)
+        self.assertEqual(expected_entry._entry_type_id, entry_type_id)
+        self.assertEqual(str(expected_entry._entry_date), str(america_timezone.localize(datetime(2018, 10, 2, 1, 1))))
+        self.assertEqual(expected_entry._meeiro_id, meeiro_id)
+        self.assertEqual(expected_entry._description, 'veneno')
+        self.assertEqual(expected_entry._entry_value, 100.0)
 
     def test_get_entries__filter_by_value__expected_correct_result(self):
         america_timezone = pytz.timezone('America/Sao_Paulo')
@@ -153,15 +153,15 @@ class EntryModelTest(TestCase):
                                                                                operation=Operation.LESS_THAN,
                                                                                use_equal=True)
                                                     )
-        entries = Entry.get_entries(execute_session, filters_)
+        entries = Entry.list(execute_session, filters_)
         self.assertEqual(len(entries), 1)
         expected_entry = entries[0]
 
-        self.assertEqual(expected_entry.entry_type_id, entry_type_id)
-        self.assertEqual(str(expected_entry.entry_date), str(america_timezone.localize(datetime(2018, 10, 2, 1, 1))))
-        self.assertEqual(expected_entry.meeiro_id, meeiro_id)
-        self.assertEqual(expected_entry.description, 'veneno')
-        self.assertEqual(expected_entry.entry_value, 100.0)
+        self.assertEqual(expected_entry._entry_type_id, entry_type_id)
+        self.assertEqual(str(expected_entry._entry_date), str(america_timezone.localize(datetime(2018, 10, 2, 1, 1))))
+        self.assertEqual(expected_entry._meeiro_id, meeiro_id)
+        self.assertEqual(expected_entry._description, 'veneno')
+        self.assertEqual(expected_entry._entry_value, 100.0)
 
     def test_get_entries__filter_by_entry_type__expected_correct_result(self):
         america_timezone = pytz.timezone('America/Sao_Paulo')
@@ -186,12 +186,12 @@ class EntryModelTest(TestCase):
         filters_ = Entry.get_filters_to_query_entry(db_session=execute_session,
                                                     entry_type_id=entry_despesas_id
                                                     )
-        entries = Entry.get_entries(execute_session, filters_)
+        entries = Entry.list(execute_session, filters_)
         self.assertEqual(len(entries), 1)
         expected_entry = entries[0]
 
-        self.assertEqual(expected_entry.entry_type_id, entry_despesas_id)
-        self.assertEqual(str(expected_entry.entry_date), str(america_timezone.localize(datetime(2018, 10, 2, 1, 1))))
-        self.assertEqual(expected_entry.meeiro_id, meeiro_id)
-        self.assertEqual(expected_entry.description, 'veneno')
-        self.assertEqual(expected_entry.entry_value, 100.0)
+        self.assertEqual(expected_entry._entry_type_id, entry_despesas_id)
+        self.assertEqual(str(expected_entry._entry_date), str(america_timezone.localize(datetime(2018, 10, 2, 1, 1))))
+        self.assertEqual(expected_entry._meeiro_id, meeiro_id)
+        self.assertEqual(expected_entry._description, 'veneno')
+        self.assertEqual(expected_entry._entry_value, 100.0)

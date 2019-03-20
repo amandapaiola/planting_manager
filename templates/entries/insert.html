@@ -12,7 +12,7 @@
     </select>
     <br>
     Data:<br>
-    <input type="text" name="entry_date">
+    <input type="text" name="entry_date" id="datepicker">
     <br>
     Tipo:<br>
     <select name="entry_type_id" class="selectpicker">
@@ -32,3 +32,8 @@
     <input type="submit" value="Submit">
   </form>
 </pre>
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+</script>

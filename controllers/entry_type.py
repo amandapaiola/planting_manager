@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models.entry_type import EntryType
+from models.entry_type import EntryTypeModel
 from views.dtos.entry_type import EntryTypeDto
 
 
@@ -9,8 +9,12 @@ class EntryTypeController:
         self.db_connection = db_connection
 
     def list(self):
-        return EntryType.list(self.db_connection)
+        return EntryTypeModel.list(self.db_connection)
 
     def get(self, id_: int) -> EntryTypeDto:
-        entry_type = EntryType.get_entry_type(id_=id_, db_connection=self.db_connection)
+        entry_type = EntryTypeModel.get_entry_type(id_=id_, db_connection=self.db_connection)
         return EntryTypeDto(name=entry_type.name, id_=entry_type.id)
+
+    def insert(self, name: str):
+        if EntryTypeModel.insert(db_connection=self.db_connection, name=name):
+            return True, 'Inserido com Sucesso!'

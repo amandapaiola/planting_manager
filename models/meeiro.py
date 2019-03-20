@@ -9,11 +9,27 @@ from orm.planting import Meeiro as MeeiroMapping
 
 class Meeiro:
     def __init__(self, id_: int, name: str, cpf: str, rg: str, db_connection: Session):
-        self.rg = rg
-        self.cpf = cpf
-        self.name = name
-        self.id = id_
-        self.db_connection = db_connection
+        self._rg = rg
+        self._cpf = cpf
+        self._name = name
+        self._id = id_
+        self._db_connection = db_connection
+
+    @property
+    def rg(self):
+        return self._rg
+
+    @property
+    def cpf(self):
+        return self._cpf
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def id(self):
+        return self._id
 
     @classmethod
     def get_meeiro(cls, db_connection: Session, id_: int = None, cpf: str = None) -> Optional['Meeiro']:
@@ -44,7 +60,7 @@ class Meeiro:
         raise ValueError('Parametros inválidos para obter meeiro.')
 
     @classmethod
-    def get_meeiros(cls, db_connection: Session) -> List['Meeiro']:
+    def list(cls, db_connection: Session) -> List['Meeiro']:
         """
         Obtém todos os meeiros que existem cadastrados no banco.
         :param db_connection: sessão de conexão com o banco de dados.
@@ -84,7 +100,7 @@ class Meeiro:
         return True
 
     @classmethod
-    def update_meeiro(cls, db_connection: Session, new_cpf: str, new_rg: str, new_name: str, id_: int) -> bool:
+    def update(cls, db_connection: Session, new_cpf: str, new_rg: str, new_name: str, id_: int) -> bool:
 
         try:
             current_cpf = cls.get_meeiro(db_connection, cpf=new_cpf)

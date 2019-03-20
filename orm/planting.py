@@ -30,7 +30,7 @@ class BoxType(Base):
 class EntryType(Base):
     __tablename__ = 'entry_type'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False, unique=True)
 
 
